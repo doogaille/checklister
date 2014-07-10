@@ -1,6 +1,6 @@
 # Checklister
 
-Checklister à est développé pour fournir un outil simple mais efficace pour gérer simplement la création et l'impression de checklist utile pour toute personne/entreprise qui souhaite s'assurer de ne rien oublier.
+Checklister a été développé pour fournir un outil simple mais efficace pour gérer simplement la création et l'impression de checklists. Cet outil peut se révelr utile pour toute personne/entreprise qui souhaite s'assurer de ne rien oublier sans devoir créer un compte dans le cloud / installer 40 dépendances / utiliser un outil qui comporte 50 fonctions sauf l'essentielle 'la clareté'.
 
 
 ## Pré-requis
