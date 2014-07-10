@@ -1,0 +1,105 @@
+/*
+    This file is part of Checklister.
+
+    Checklister is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Checklister is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Checklister.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+body {
+    margin:0;
+    padding:0;
+    font-family:Arial, sans-serif;
+    font-size:12px;
+}
+
+form {
+    display:none;
+}
+
+h1 {
+    font-size:30px;
+}
+
+h2 {
+    font-size:16px;
+    margin:0;
+}
+
+a.imprimer {
+    float:right;
+    display:block;
+    margin-top:15px;
+    text-decoration:none;
+}
+
+#header {
+    display:none;
+}
+
+input, select, textarea {
+  border:1px solid #c1c1c1;
+    padding:10px;
+    margin: 0;
+    font-family:Arial, sans-serif;
+    font-size:13px;
+    vertical-align:middle;
+}
+
+button,a.imprimer,.btn {
+    display:none;
+    border:0;
+    background-color:#1a1a1a;
+    color:#fff;
+    font-family:Arial, sans-serif;
+    font-size:13px;
+    padding:10px;
+    border-radius:3px;
+    text-decoration:none;
+    vertical-align:middle;
+}
+
+a {
+    color:#666666;
+}
+
+a.btn {
+    font-size:12px;
+    font-weight:normal;
+}
+
+#liste_items {
+    width:982px;
+    margin:25px auto;
+
+    padding:00px;
+}
+
+#liste_items p {
+    margin:0;
+    font-size:16px;
+    padding:12px 60px 12px 60px;
+    position:relative;
+    margin-bottom:0px;
+    border-bottom:1px solid #666;
+    background-color:#ececec;
+
+}
+
+#liste_items p.impaire {
+    background-color:#fff;
+}
+#liste_items p .btn {
+    position:absolute;
+    right:10px;
+    top:10px;
+}
