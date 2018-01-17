@@ -17,11 +17,6 @@
     */
     require_once("config.php");
 
-//    mysql_connect($config['sql_srv'],$config['sql_user'],$config['sql_pwd']);
-//    mysql_select_db($config['sql_db']);
-//
-//    mysql_query("SET NAMES 'utf8';");
-
     /* Connexion à la base de donnée */
     $pdo = new PDO('mysql:host='.$config['db_host'].';dbname='.$config['db_bdd'], $config['db_user'],$config['db_pass']);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
