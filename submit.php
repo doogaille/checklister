@@ -14,13 +14,14 @@
 
         You should have received a copy of the GNU General Public License
         along with Checklister.  If not, see <http://www.gnu.org/licenses/>.
+        .mysql_real_escape_string($_POST['checklist_nom']).
     */
     require_once("config.php");
 
-    mysql_connect($config['sql_srv'],$config['sql_user'],$config['sql_pwd']);
-    mysql_select_db($config['sql_db']);
-
-    mysql_query("SET NAMES 'utf8';");
+    /* Connexion à la base de donnée */
+    $pdo = new PDO('mysql:host='.$config['db_host'].';dbname='.$config['db_bdd'], $config['db_user'],$config['db_pass']);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo->exec("SET CHARACTER SET utf8");
 
     /* Vérification de la présence d'une action en paramètre GET */
     if(!empty($_GET['act'])) {
@@ -32,14 +33,15 @@
                     INSERT INTO checklists (
                         `nom`
                     ) VALUES (
-                        '".mysql_real_escape_string($_POST['checklist_nom'])."'
+                        :nom
                     );
                 ";
-                
-                $res = mysql_query($req);
+                $res = $pdo->prepare($req);
+                $res->bindParam('nom', $_POST['checklist_nom'], PDO::PARAM_STR);
+                $res->execute();
                 
                 if($res) {
-                    $id_insert = mysql_insert_id();
+                    $id_insert = $pdo->lastInsertId();
                     header("Location: index.php?checklist_id=".$id_insert);
                 } else {
                     echo 'Impossible de créer la checklist';
@@ -56,12 +58,15 @@
                         `id_checklist`,
                         `texte`
                     ) VALUES (
-                        ".intval($_POST['checklist_id']).",
-                        '".mysql_real_escape_string($_POST['checklist_texte'])."'
+                        :id_checklist,
+                        :texte
                     );
                 ";
                 
-                $res = mysql_query($req);
+                $res = $pdo->prepare($req);
+                $res->bindParam('id_checklist', $_POST['checklist_id'], PDO::PARAM_INT);
+                $res->bindParam('texte', $_POST['checklist_texte'], PDO::PARAM_STR);
+                $res->execute();
                 
                 if($res) {
                     header("Location: index.php?checklist_id=".intval($_POST['checklist_id']));
@@ -76,7 +81,7 @@
                 echo 'Identifiant d\'item de checklist erroné';
             } else {
                 $req = "DELETE FROM checklists_items WHERE id=".intval($_GET['item_id'])." LIMIT 1";
-                $res = mysql_query($req);
+                $res = $pdo->query($req);
                 
                 if($res) {
                     header("Location: index.php?checklist_id=".intval($_GET['checklist_id']));
@@ -89,7 +94,7 @@
                 echo 'Identifiant de checklist erroné';
             } else {
                 $req = "DELETE FROM checklists WHERE id=".intval($_GET['checklist_id'])." LIMIT 1";
-                $res = mysql_query($req);
+                $res = $pdo->query($req);
                 
                 if($res) {
                     header("Location: index.php");
@@ -98,7 +103,7 @@
                 }
             }
         } else {
-            echo 'action invalide';   
+            echo 'action invalide';
         }
     }
     

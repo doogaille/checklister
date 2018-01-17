@@ -17,10 +17,15 @@
     */
     require_once("config.php");
 
-    mysql_connect($config['sql_srv'],$config['sql_user'],$config['sql_pwd']);
-    mysql_select_db($config['sql_db']);
+//    mysql_connect($config['sql_srv'],$config['sql_user'],$config['sql_pwd']);
+//    mysql_select_db($config['sql_db']);
+//
+//    mysql_query("SET NAMES 'utf8';");
 
-    mysql_query("SET NAMES 'utf8';");
+    /* Connexion à la base de donnée */
+    $pdo = new PDO('mysql:host='.$config['db_host'].';dbname='.$config['db_bdd'], $config['db_user'],$config['db_pass']);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo->exec("SET CHARACTER SET utf8");
 
 ?><!DOCTYPE html>
 <html>
@@ -52,9 +57,10 @@
                     <option value="">-- Séléctionner --</option>
                     <?php
                         $req = "SELECT * FROM checklists";
-                        $res = mysql_query($req);
+                        $res = $pdo->query($req);
+                        $res->execute();
 
-                        while($row = mysql_fetch_array($res,MYSQL_ASSOC)) {
+                        while($row = $res->fetch(PDO::FETCH_ASSOC)) {
                             echo '<option value="'.$row['id'].'" ';
                             if(!empty($_GET['checklist_id']) && $_GET['checklist_id'] == $row['id']) echo 'selected="selected"';
                             echo '>'.$row['nom'].'</option>'."\n";
@@ -76,9 +82,9 @@
             if(!empty($_GET['checklist_id'])) {
 
                 $req = "SELECT id, nom FROM checklists WHERE id=".intval($_GET['checklist_id'])." LIMIT 1";
-                $res = mysql_query($req);
+                $res = $pdo->query($req);
 
-                while($row = mysql_fetch_array($res, MYSQL_ASSOC)) {
+                while($row = $res->fetch(PDO::FETCH_ASSOC)) {
                     $datas = $row;
                 }
         ?>
@@ -105,10 +111,10 @@
         <div id="liste_items">
         <?php
                 $req = "SELECT id, texte FROM checklists_items WHERE id_checklist=".intval($_GET['checklist_id']);
-                $res = mysql_query($req);
+                $res = $pdo->query($req);
                 
                 $i = 0;
-                while($row = mysql_fetch_array($res, MYSQL_ASSOC)) {
+                while($row = $res->fetch(PDO::FETCH_ASSOC)) {
                     
                     $id = $row['id'];
                     $texte = $row['texte'];

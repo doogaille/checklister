@@ -17,9 +17,9 @@
     */
 
     $config = array(
-        'sql_srv'   => 'localhost',     // Adresse du serveur MySQL
-        'sql_user'  => 'root',          // Identifiant MySQL
-        'sql_pwd'   => '',              // Mot de passe
-        'sql_db'    => 'checklister'    // Nom de la base de donnée
+        'db_host'   => 'localhost',     // Adresse du serveur MySQL
+        'db_user'   => 'root',          // Identifiant MySQL
+        'db_pass'   => '',              // Mot de passe
+        'db_bdd'    => 'checklister'    // Nom de la base de donnée
     );
 ?>
